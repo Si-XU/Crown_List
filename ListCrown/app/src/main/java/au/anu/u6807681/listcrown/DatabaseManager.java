@@ -60,6 +60,15 @@ public class DatabaseManager {
         return cursor;
     }
 
+    public Cursor selectToCalendar() {
+        String[] columns = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION, MyDatabaseHelper.ENDDATE };
+        Cursor cursor = database.query(MyDatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
     public int update(long id, String keyword, String description,long enddate, String importance, String state, String location) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(MyDatabaseHelper.KEYWORD, keyword);
