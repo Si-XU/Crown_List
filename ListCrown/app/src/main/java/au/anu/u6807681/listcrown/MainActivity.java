@@ -83,11 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-//    public void changeToCalender(View V) {
-//        Intent checkCalendar = new Intent(this, DisplayMessageActivity.class);
-//        startActivity(checkCalendar);
-//    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

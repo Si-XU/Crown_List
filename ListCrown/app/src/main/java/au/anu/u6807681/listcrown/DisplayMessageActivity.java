@@ -29,18 +29,17 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         final Date date = new Date();
         final CompactCalendarView compactCalendarView = findViewById(R.id.compactCalendarView);
-        // final ActionBar actionbar = getSupportActionBar();
+        final ActionBar actionbar = getSupportActionBar();
 
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
-        // actionbar.setTitle((1900+date.getYear()) + "." + (date.getMonth()+1));
+        actionbar.setTitle((1900+date.getYear()) + "." + (date.getMonth()+1));
 
         // Add event 1 on Sun, 07 Jun 2015 18:20:51 GMT
-        Event ev1 = new Event(Color.GREEN, 1570798800000L, "Some extra data that I want to store.");
+        Event ev1 = new Event(Color.RED, 1570798800000L, "Event 1.");
         compactCalendarView.addEvent(ev1);
-
         // Added event 2 GMT: Sun, 07 Jun 2015 19:10:51 GMT
-        Event ev2 = new Event(Color.GREEN, 1571144400000L);
+        Event ev2 = new Event(Color.RED, 1571144400000L, "Event 2");
         compactCalendarView.addEvent(ev2);
 
         // define a listener to receive callbacks when certain events happen.
@@ -64,7 +63,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                // actionbar.setTitle((1900+firstDayOfNewMonth.getYear()) + "." + (firstDayOfNewMonth.getMonth()+1));
+                actionbar.setTitle((1900+firstDayOfNewMonth.getYear()) + "." + (firstDayOfNewMonth.getMonth()+1));
             }
         });
     }
