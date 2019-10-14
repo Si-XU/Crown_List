@@ -9,14 +9,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 //this is the start activity
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseManager databaseManager;
     private ListView listView;
+    private Button calendar;
 
     //map columns from a cursor to Text
     private SimpleCursorAdapter sca;
@@ -30,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.list_view);
         listView.setEmptyView(findViewById(R.id.empty_notifier));
+
+        calendar = findViewById(R.id.calendar);
+        calendar.setOnClickListener(this);
 
         databaseManager = new DatabaseManager(this);
         databaseManager.open();
@@ -56,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(editIntent);
             }
         });
+
     }
     // this is the add button modification
     @Override
@@ -73,9 +79,21 @@ public class MainActivity extends AppCompatActivity {
 
             Intent add_mem = new Intent(this, AddItemActivity.class);
             startActivity(add_mem);
-
         }
         return super.onOptionsItemSelected(item);
     }
 
+//    public void changeToCalender(View V) {
+//        Intent checkCalendar = new Intent(this, DisplayMessageActivity.class);
+//        startActivity(checkCalendar);
+//    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.calendar:
+                Intent checkCalendar = new Intent(this, DisplayMessageActivity.class);
+                startActivity(checkCalendar);
+        }
+    }
 }

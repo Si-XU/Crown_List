@@ -6,16 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".DisplayMessageActivity">
 
-    <CalendarView
-        android:id="@+id/calendar"
-        android:layout_width="345dp"
-        android:layout_height="396dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:calendarViewShown="false"
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactCalendarView"
+        android:layout_width="413dp"
+        android:layout_height="660dp"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:compactCalendarBackgroundColor="#ffd"
+        app:compactCalendarCurrentDayBackgroundColor="#CFCFCF"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#E57320"
+        app:compactCalendarMultiEventIndicatorColor="#000"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextColor="#000"
+        app:compactCalendarTextSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51" />
+
+    <ListView
+        android:layout_width="409dp"
+        android:layout_height="282dp"
+        android:id="@+id/listView"
+        app:layout_constraintBottom_toBottomOf="@+id/compactCalendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

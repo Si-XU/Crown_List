@@ -6,7 +6,7 @@
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="651dp"
         android:dividerHeight="1dp"
         android:padding="15dp" />
 
@@ -15,8 +15,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textColor="#7A7A7A"
         android:text="Add your first task!"
+        android:textColor="#7A7A7A"
         android:textSize="36sp" />
+
+    <Button
+        android:id="@+id/calendar"
+        android:layout_width="162dp"
+        android:layout_height="62dp"
+        android:layout_below="@+id/empty_notifier"
+        android:layout_alignStart="@+id/empty_notifier"
+        android:layout_alignEnd="@+id/empty_notifier"
+        android:layout_alignBottom="@+id/empty_notifier"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="-329dp"
+        android:onClick="changeToCalender"
+        android:text="Calendar" />
 
 </RelativeLayout>
