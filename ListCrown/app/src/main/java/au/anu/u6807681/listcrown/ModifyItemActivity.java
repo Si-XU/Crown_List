@@ -126,7 +126,6 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
         updateButton.setOnClickListener(this);
         deleteButton.setOnClickListener(this);
 
-
     }
 
     @Override

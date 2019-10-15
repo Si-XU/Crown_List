@@ -20,18 +20,23 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 //this is the start activity
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseManager databaseManager;
     private ListView listView;
     private FloatingActionButton calendar;
+    private FloatingActionButton addTask;
+    private FloatingActionButton track;
     private NotificationManager notificationManager;
 
     //map columns from a cursor to Text
     private SimpleCursorAdapter sca;
-    private String[] data = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION };
-    private int[] ids = new int[] { R.id.id, R.id.keyword, R.id.description };
+    private String[] data = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION};
+    private int[] ids = new int[] { R.id.id, R.id.keyword, R.id.description};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +49,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         calendar = findViewById(R.id.calendar);
         calendar.setOnClickListener(this);
 
+        addTask = findViewById(R.id.add_a_task);
+        addTask.setOnClickListener(this);
+
+        track = findViewById(R.id.track);
+        track.setOnClickListener(this);
+
+
+
         databaseManager = new DatabaseManager(this);
         databaseManager.open();
         Cursor cursor = databaseManager.selectToMainPage();
+
         sca = new SimpleCursorAdapter(this, R.layout.activity_view_item, cursor, data, ids, 0);
         sca.notifyDataSetChanged();
-        //listview get the data from the database
+        //listview shows the data
         listView.setAdapter(sca);
+
 
         // OnCLickListener for tasks which are listed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,8 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
                 // list the main info of tasks
                 TextView idTextView = view.findViewById(R.id.id);
-                TextView keywordTextView = view.findViewById(R.id.keyword);
-                TextView descriptionTextView = view.findViewById(R.id.description);
                 String id = idTextView.getText().toString();
 
                 //when it is clicked, new intent and pass the chosen task id to the next activity
@@ -84,25 +97,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-    // this is the add button modification
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    // this is the add button modification
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
-    //jump to the add activity
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.add_record) {
-
-            Intent add_mem = new Intent(this, AddItemActivity.class);
-            startActivity(add_mem);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    //jump to the add activity
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//        if (id == R.id.add_record) {
+//
+//            Intent add_mem = new Intent(this, AddItemActivity.class);
+//            startActivity(add_mem);
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -110,7 +123,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.calendar:
                 Intent checkCalendar = new Intent(this, DisplayMessageActivity.class);
                 startActivity(checkCalendar);
+                break;
+            case R.id.add_a_task:
+                Intent add_item = new Intent(this, AddItemActivity.class);
+                startActivity(add_item);
         }
+
     }
 
     //implement createNotificationChannel method
