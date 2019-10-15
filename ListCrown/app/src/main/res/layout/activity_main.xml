@@ -34,4 +34,11 @@
         android:onClick="changeToCalender"
         android:text="Calendar" />
 
+    <Button
+        android:id="@+id/reminder"
+        android:layout_width="162dp"
+        android:layout_height="62dp"
+        android:onClick="reminder"
+        android:text="Reminder" />
+
 </RelativeLayout>
