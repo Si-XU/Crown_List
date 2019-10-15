@@ -3,6 +3,7 @@ package au.anu.u6807681.listcrown;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DatabaseManager databaseManager;
     private ListView listView;
-    private Button calendar;
+    private FloatingActionButton calendar;
 
     //map columns from a cursor to Text
     private SimpleCursorAdapter sca;

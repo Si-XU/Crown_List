@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="651dp"
+        android:layout_height="match_parent"
         android:dividerHeight="1dp"
-        android:padding="15dp" />
+        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/empty_notifier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="Add your first task!"
         android:textColor="#7A7A7A"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="#99ff99"
+        android:src="@drawable/add"
+        app:layout_constraintBottom_toBottomOf="@+id/list_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="@+id/list_view" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/calendar"
-        android:layout_width="162dp"
-        android:layout_height="62dp"
-        android:layout_below="@+id/empty_notifier"
-        android:layout_alignStart="@+id/empty_notifier"
-        android:layout_alignEnd="@+id/empty_notifier"
-        android:layout_alignBottom="@+id/empty_notifier"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="-329dp"
-        android:onClick="changeToCalender"
-        android:text="Calendar" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffff99"
+        android:src="@drawable/calendar"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="@+id/list_view" />
 
-</RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
