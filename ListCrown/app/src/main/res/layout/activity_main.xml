@@ -38,7 +38,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="#ff9999"
+        app:backgroundTint="#ff9999"
         android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="@+id/list_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="#ffff99"
+        app:backgroundTint="#ffff99"
         android:src="@drawable/calendar"
         app:layout_constraintBottom_toTopOf="@+id/add_a_task"
         app:layout_constraintEnd_toEndOf="@+id/list_view" />
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="#99ff99"
+        app:backgroundTint="#99ff99"
         android:src="@drawable/tick"
         app:layout_constraintBottom_toTopOf="@+id/calendar"
         app:layout_constraintEnd_toEndOf="@+id/list_view" />

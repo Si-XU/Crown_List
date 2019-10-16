@@ -47,13 +47,23 @@ public class DatabaseManager {
     }
 
     public Cursor selectToMainPage() {
-        String[] columns = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION };
+        String[] columns = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION, MyDatabaseHelper.ENDDATE, MyDatabaseHelper.STATE };
         Cursor cursor = database.query(MyDatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         return cursor;
     }
+    public Cursor selectToMainPageTrack() {
+        String[] columns = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION, MyDatabaseHelper.ENDDATE, MyDatabaseHelper.STATE };
+        String[] arg = new String[]{"undone"};
+        Cursor cursor = database.query(MyDatabaseHelper.TABLE_NAME, columns, "state = ?", arg, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
 
     public Cursor selectToModify(long _id) {
         String[] arg = new String[]{String.valueOf(_id)};

@@ -17,11 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 //this is the start activity
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,12 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton calendar;
     private FloatingActionButton addTask;
     private FloatingActionButton track;
+    private boolean isActive;
     private NotificationManager notificationManager;
 
     //map columns from a cursor to Text
     private SimpleCursorAdapter sca;
-    private String[] data = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION};
-    private int[] ids = new int[] { R.id.id, R.id.keyword, R.id.description};
+    private ListAdapter listAdapter;
+    private String[] data = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION, MyDatabaseHelper.ENDDATE, MyDatabaseHelper.STATE};
+    private int[] ids = new int[] { R.id.id, R.id.keyword, R.id.description, R.id.enddate, R.id.state};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.list_view);
         listView.setEmptyView(findViewById(R.id.empty_notifier));
+        isActive = true;
 
         calendar = findViewById(R.id.calendar);
         calendar.setOnClickListener(this);
@@ -55,17 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         track = findViewById(R.id.track);
         track.setOnClickListener(this);
 
-
-
+        //fetch data from the database
         databaseManager = new DatabaseManager(this);
         databaseManager.open();
-        Cursor cursor = databaseManager.selectToMainPage();
 
-        sca = new SimpleCursorAdapter(this, R.layout.activity_view_item, cursor, data, ids, 0);
-        sca.notifyDataSetChanged();
+        ArrayList<HashMap<String, String>> itemList = getItemMainPage();
         //listview shows the data
-        listView.setAdapter(sca);
+        listAdapter = new SimpleAdapter(this, itemList, R.layout.activity_view_item,data,ids);
+        listView.setAdapter(listAdapter);
 
+
+        //use curson directly
+//        sca = new SimpleCursorAdapter(this, R.layout.activity_view_item, cursor, data, ids, 0);
+//        sca.notifyDataSetChanged();
 
         // OnCLickListener for tasks which are listed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -127,8 +136,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.add_a_task:
                 Intent add_item = new Intent(this, AddItemActivity.class);
                 startActivity(add_item);
+                break;
+            case R.id.track:
+                if (isActive) {
+                    isActive = false;
+                    ArrayList<HashMap<String, String>> itemListTrack = getUndoneTrack();
+                    listAdapter = new SimpleAdapter(this, itemListTrack, R.layout.activity_view_item,data,ids);
+                } else {
+                    isActive = true;
+                    ArrayList<HashMap<String, String>> itemList = getItemMainPage();
+                    listAdapter = new SimpleAdapter(this, itemList, R.layout.activity_view_item,data,ids);
+                }
+                listView.setAdapter(listAdapter);
+
+
+                //listview shows the data
+
+
+
         }
 
+    }
+
+    private ArrayList<HashMap<String, String>> getItemMainPage(){
+        Cursor cursor = databaseManager.selectToMainPage();
+        ArrayList<HashMap<String, String>> itemList = new ArrayList<>();
+        while (cursor.moveToNext()){
+            HashMap<String,String> item = new HashMap<>();
+            item.put("_id",cursor.getString(cursor.getColumnIndex("_id")));
+            item.put("keyword",cursor.getString(cursor.getColumnIndex("keyword")));
+            item.put("description",cursor.getString(cursor.getColumnIndex("description")));
+
+            //deal with the deadline date
+            long deadline = Long.parseLong(cursor.getString(cursor.getColumnIndex("enddate")));
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
+            Date date = new Date(deadline);
+            String str = "Deadline: "+ sdf.format(date);
+            item.put("enddate",str);
+
+            item.put("state",cursor.getString(cursor.getColumnIndex("state")));
+            itemList.add(item);
+        }
+        return itemList;
+    }
+
+    private ArrayList<HashMap<String, String>> getUndoneTrack(){
+        Cursor cursor = databaseManager.selectToMainPageTrack();
+        ArrayList<HashMap<String, String>> itemListTrack = new ArrayList<>();
+        while (cursor.moveToNext()){
+            HashMap<String,String> item = new HashMap<>();
+            item.put("_id",cursor.getString(cursor.getColumnIndex("_id")));
+            item.put("keyword",cursor.getString(cursor.getColumnIndex("keyword")));
+            item.put("description",cursor.getString(cursor.getColumnIndex("description")));
+
+            //deal with the deadline date
+            long deadline = Long.parseLong(cursor.getString(cursor.getColumnIndex("enddate")));
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
+            Date date = new Date(deadline);
+            String str = "Deadline: "+ sdf.format(date);
+            item.put("enddate",str);
+
+            item.put("state",cursor.getString(cursor.getColumnIndex("state")));
+            itemListTrack.add(item);
+        }
+        return itemListTrack;
     }
 
     //implement createNotificationChannel method
