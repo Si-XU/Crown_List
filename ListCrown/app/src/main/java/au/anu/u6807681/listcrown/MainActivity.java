@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         track = findViewById(R.id.track);
         track.setOnClickListener(this);
 
+
         //fetch data from the database
         databaseManager = new DatabaseManager(this);
         databaseManager.open();
@@ -96,12 +97,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         //make sure the target API 26+ because the NotificationChannel class is new
-        //call the createNotificationChannel method
+        //call the createNotificationChannel method and create three channels with
+        // different importance
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-        String channelId = "R";
-        String channelName = "Reminder";
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-        createNotificationChannel(channelId,channelName,importance);
+            String channelId = "H";
+            String channelName = "High_Reminder";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            createNotificationChannel(channelId,channelName,importance);
+            channelId = "M";
+            channelName = "Medium_Reminder";
+            importance = NotificationManager.IMPORTANCE_DEFAULT;
+            createNotificationChannel(channelId,channelName,importance);
+            channelId = "L";
+            channelName = "Low_Reminder";
+            importance = NotificationManager.IMPORTANCE_LOW;
+            createNotificationChannel(channelId,channelName,importance);
         }
 
 
@@ -148,13 +158,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     listAdapter = new SimpleAdapter(this, itemList, R.layout.activity_view_item,data,ids);
                 }
                 listView.setAdapter(listAdapter);
-
-
-                //listview shows the data
-
-
+                break;
 
         }
+
 
     }
 
@@ -202,23 +209,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return itemListTrack;
     }
 
-    //implement createNotificationChannel method
+    //the method to create NotificationChannel
     private void createNotificationChannel(String channelId,String channelName,int importance){
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-    //set a Reminder
-    public void reminder(View view){
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this,"R");
-        notification.setContentTitle("Deadline!!!");
-        notification.setContentText("Keyword for the item");
-        notification.setWhen(System.currentTimeMillis());
-        notification.setSmallIcon(R.drawable.ic_launcher_background);
-        notification.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher_background));
-        notification.setAutoCancel(true);
-        notificationManager.notify(1,notification.build());
     }
 }

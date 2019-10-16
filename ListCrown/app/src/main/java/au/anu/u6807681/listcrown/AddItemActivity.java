@@ -1,17 +1,24 @@
 package au.anu.u6807681.listcrown;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -40,6 +47,14 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
     private String[] statusItems;
     private ArrayAdapter<String> importanceAdapter;
     private ArrayAdapter<String> statusAdapter;
+    private long id;
+    private String keyword;
+    private String description;
+    private String location;
+    private String importance;
+    private String state;
+    private long createdate;
+    private long enddate;
 
 
 
@@ -93,11 +108,11 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
         switch (v.getId()) {
             case R.id.add_task:
 
-                String keyword = keywordEditText.getText().toString();
-                String description = descriptionEditText.getText().toString();
-                String location = locationEditText.getText().toString();
-                String importance = importanceSpinner.getSelectedItem().toString();
-                String state = statusSpinner.getSelectedItem().toString();
+                keyword = keywordEditText.getText().toString();
+                description = descriptionEditText.getText().toString();
+                location = locationEditText.getText().toString();
+                importance = importanceSpinner.getSelectedItem().toString();
+                state = statusSpinner.getSelectedItem().toString();
 
                 SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
                 SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
@@ -111,15 +126,22 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
                     e.printStackTrace();
                 }
 
-                long createdate = createTemp.getTime();
-                long enddate = endTemp.getTime();
+                createdate = createTemp.getTime();
+                enddate = endTemp.getTime();
 
                 databaseManager.insert(keyword, description,createdate,enddate,importance, state, location);
+                Cursor cursor = databaseManager.selectMaxId();
+                String idTemp = cursor.getString(cursor.getColumnIndex("MAX(_id)"));
+                id = Long.parseLong(idTemp);
 
                 Intent main = new Intent(AddItemActivity.this, MainActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 startActivity(main);
+                //set an alarm
+                reminder(v);
+
+
                 break;
         }
     }
@@ -166,6 +188,14 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
             dialog.show();
         }
         return true;
+    }
+    //a method that set a reminder at the deadline of the item when it added to the list
+    public void reminder(View v){
+        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, Notification.class);
+        alarmIntent.putExtra("id",id);
+        PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarm.set(AlarmManager.RTC_WAKEUP, enddate, sendBroadcast);
     }
 
 }
