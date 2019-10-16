@@ -52,13 +52,6 @@ public class DisplayMessageActivity extends AppCompatActivity {
         }
         while(cursor.moveToNext());
 
-        // Add event 1 on Sun, 07 Jun 2015 18:20:51 GMT
-        Event ev1 = new Event(Color.RED, 1570798800000L, "Event 1.");
-        compactCalendarView.addEvent(ev1);
-        // Added event 2 GMT: Sun, 07 Jun 2015 19:10:51 GMT
-        Event ev2 = new Event(Color.RED, 1571144400000L, "Event 2");
-        compactCalendarView.addEvent(ev2);
-
         // define a listener to receive callbacks when certain events happen.
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -66,7 +59,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
                 Context context = getApplicationContext();
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
                 ListView listView = findViewById(R.id.eventList);
-                listView.removeAllViews();
+                listView.removeAllViewsInLayout();
 
                 if (events.size() > 0) {
                     adapter = new ItemAdapter(events, DisplayMessageActivity.this);
@@ -82,6 +75,4 @@ public class DisplayMessageActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
