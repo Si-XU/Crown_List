@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/oneItem"
-        android:layout_width="338dp"
-        android:layout_height="116dp"
+        android:layout_width="339dp"
+        android:layout_height="89dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="16dp">
@@ -19,12 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="TextView" />
-
-        <CheckBox
-            android:id="@+id/finished"
-            android:layout_width="109dp"
-            android:layout_height="wrap_content"
-            android:text="CheckBox" />
 
         <EditText
             android:id="@+id/description"

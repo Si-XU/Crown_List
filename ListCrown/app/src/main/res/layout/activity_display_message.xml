@@ -31,7 +31,7 @@
     <ListView
         android:layout_width="409dp"
         android:layout_height="282dp"
-        android:id="@+id/listView"
+        android:id="@+id/eventList"
         app:layout_constraintBottom_toBottomOf="@+id/compactCalendarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

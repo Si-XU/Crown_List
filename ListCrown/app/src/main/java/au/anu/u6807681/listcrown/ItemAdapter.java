@@ -8,15 +8,17 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.sundeepk.compactcalendarview.domain.Event;
+
 import java.util.List;
 
-public class ItemAdapter extends ArrayAdapter<Item> {
-    private List<Item> itemList;
+public class ItemAdapter extends ArrayAdapter<Event> {
+    private List<Event> eventList;
     private Context context;
 
-    public ItemAdapter(List itemList, Context context) {
-        super(context,R.layout.singleitem, itemList);
-        this.itemList = itemList;
+    public ItemAdapter(List eventList, Context context) {
+        super(context,R.layout.singleitem, eventList);
+        this.eventList = eventList;
         this.context = context;
     }
 
@@ -30,13 +32,16 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.singleitem, parent, false);
         }
+
         // Now we can fill the layout with the right values
         TextView tv = (TextView) convertView.findViewById(R.id.name);
         EditText ev = (EditText) convertView.findViewById(R.id.description);
-        Item p = itemList.get(position);
-
-        tv.setText(p.keyword);
-        ev.setText("" + p.description);
+        Event p = eventList.get(position);
+        String[] texts = ((String) p.getData()).split("\\|");
+        if(texts.length > 1) {
+            tv.setText(texts[0]);
+            ev.setText(texts[1]);
+        }
 
         return convertView;
     }
