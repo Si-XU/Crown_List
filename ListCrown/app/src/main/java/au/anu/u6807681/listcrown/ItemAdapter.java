@@ -42,6 +42,10 @@ public class ItemAdapter extends ArrayAdapter<Event> {
             tv.setText(texts[0]);
             ev.setText(texts[1]);
         }
+        else if (texts.length == 1) {
+            tv.setText(texts[0]);
+            ev.setText("no description");
+        }
 
         return convertView;
     }
