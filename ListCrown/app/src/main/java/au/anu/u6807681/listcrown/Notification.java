@@ -38,36 +38,24 @@ public class Notification extends BroadcastReceiver  {
         switch (""+importance){
             case "high" :
                 notification = new NotificationCompat.Builder(context, "H");
-                notification.setContentTitle("Important!!!");
+                notification.setContentTitle("Deadline!!!");
                 notification.setContentText("" +keyword  +" is due");
                 notification.setWhen(System.currentTimeMillis());
-                notification.setSmallIcon(R.drawable.ic_launcher_background);
+                notification.setSmallIcon(R.drawable.tick);
                 notification.setAutoCancel(true);
-                //notification.setColor(Color.RED);
-                //notification.setLargeIcon();
+                notification.setColor(Color.RED);
                 notificationManager.notify((int) id, notification.build());
                 break;
             case "medium" :
                 notification = new NotificationCompat.Builder(context, "M");
-                notification.setContentTitle("Reminder!");
-                notification.setContentText("" +keyword  +" is due");
-                notification.setWhen(System.currentTimeMillis());
-                notification.setSmallIcon(R.drawable.ic_launcher_background);
-                notification.setAutoCancel(true);
-                //notification.setColor(Color.BLUE);
-                //notification.setLargeIcon();
-                notificationManager.notify((int) id, notification.build());
-                break;
-            case "low" :
-                notification = new NotificationCompat.Builder(context, "L");
                 notification.setContentTitle("Reminder");
                 notification.setContentText("" +keyword  +" is due");
                 notification.setWhen(System.currentTimeMillis());
-                notification.setSmallIcon(R.drawable.ic_launcher_background);
+                notification.setSmallIcon(R.drawable.tick);
                 notification.setAutoCancel(true);
-                //notification.setColor(Color.BLACK);
-                //notification.setLargeIcon();
                 notificationManager.notify((int) id, notification.build());
+                break;
+            case "low" :
                 break;
         }
         }
