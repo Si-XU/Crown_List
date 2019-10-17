@@ -218,7 +218,7 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, Notification.class);
         alarmIntent.putExtra("id", id);
-        PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarm.set(AlarmManager.RTC_WAKEUP, time, sendBroadcast);
     }
     //a method that delete the reminder of the item after it been deleted
@@ -226,7 +226,7 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, Notification.class);
         alarmIntent.putExtra("id", id);
-        PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarm.cancel(sendBroadcast);
     }
 }
