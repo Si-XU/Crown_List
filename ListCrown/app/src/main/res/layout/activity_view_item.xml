@@ -10,7 +10,7 @@
         android:layout_height="82dp"
         android:layout_marginEnd="0dp"
         android:layout_toStartOf="@+id/itemInformation"
-        app:srcCompat="@android:color/holo_red_light" />
+        app:srcCompat="@color/colorAccent" />
 
     <TextView
         android:id="@+id/state"

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ArrayList<HashMap<String, String>> itemList = getItemMainPage();
         //listview shows the data
-        listAdapter = new SimpleAdapter(this, itemList, R.layout.activity_view_item,data,ids);
+        listAdapter = new MainAdapter(itemList, this);
         listView.setAdapter(listAdapter);
 
 
@@ -147,11 +147,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isActive) {
                     isActive = false;
                     ArrayList<HashMap<String, String>> itemListTrack = getUndoneTrack();
-                    listAdapter = new SimpleAdapter(this, itemListTrack, R.layout.activity_view_item,data,ids);
+                    listAdapter = new MainAdapter(itemListTrack, this);
                 } else {
                     isActive = true;
                     ArrayList<HashMap<String, String>> itemList = getItemMainPage();
-                    listAdapter = new SimpleAdapter(this, itemList, R.layout.activity_view_item,data,ids);
+                    listAdapter = new MainAdapter(itemList, this);
                 }
                 listView.setAdapter(listAdapter);
                 break;
