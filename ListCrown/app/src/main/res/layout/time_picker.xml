@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="10sp">
 
-
     <DatePicker
         android:id="@+id/date_picker"
         android:layout_width="300dp"
@@ -26,6 +25,5 @@
         android:layout_marginBottom="15dp"
         android:layout_weight="50"
         android:theme="@android:style/Theme.Black" />
-
 
 </LinearLayout>
