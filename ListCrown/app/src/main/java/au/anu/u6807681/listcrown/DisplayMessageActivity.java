@@ -47,7 +47,15 @@ public class DisplayMessageActivity extends AppCompatActivity {
             String keyword = cursor.getString(cursor.getColumnIndex("keyword"));
             String description = cursor.getString(cursor.getColumnIndex("description"));
             long endDate = Long.parseLong(cursor.getString(cursor.getColumnIndex("enddate")));
-            Event event = new Event(Color.RED, endDate, keyword + "|" + description);
+            String importance = cursor.getString(cursor.getColumnIndex("importance"));
+            Event event;
+            if (importance.equals("low")) {
+                event = new Event(Color.GREEN, endDate, keyword + "|" + description);
+            } else if (importance.equals("medium")) {
+                event = new Event(Color.YELLOW, endDate, keyword + "|" + description);
+            } else {
+                event = new Event(Color.RED, endDate, keyword + "|" + description);
+            }
             compactCalendarView.addEvent(event);
         }
         while(cursor.moveToNext());

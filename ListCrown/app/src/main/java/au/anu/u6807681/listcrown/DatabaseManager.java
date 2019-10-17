@@ -84,7 +84,7 @@ public class DatabaseManager {
     }
 
     public Cursor selectToCalendar() {
-        String[] columns = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION, MyDatabaseHelper.ENDDATE };
+        String[] columns = new String[] { MyDatabaseHelper.ID, MyDatabaseHelper.KEYWORD, MyDatabaseHelper.DESCRIPTION, MyDatabaseHelper.ENDDATE, MyDatabaseHelper.IMPORTANCE };
         Cursor cursor = database.query(MyDatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
