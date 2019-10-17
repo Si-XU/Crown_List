@@ -1,8 +1,10 @@
 package au.anu.u6807681.listcrown;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -41,6 +43,7 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
     private ArrayAdapter<String> statusAdapter;
     private TextView createTimeText;
     private EditText endTimeText;
+    private long time;
 
 
     private long id;
@@ -146,14 +149,19 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
                     e.printStackTrace();
                 }
                 long enddate = endTemp.getTime();
+                time = enddate;
 
                 databaseManager.update(id, keyword, description, enddate, importance, state, location);
                 this.returnHome();
+                //update previous reminder
+                reminderUpdate(v);
                 break;
 
             case R.id.delete:
                 databaseManager.delete(id);
                 this.returnHome();
+                //delete previous reminder
+                reminderDelete(v);
                 break;
         }
     }
@@ -204,5 +212,21 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
             dialog.show();
         }
         return true;
+    }
+    //a method that modify the reminder of the item after it been updated
+    public void reminderUpdate(View v) {
+        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, Notification.class);
+        alarmIntent.putExtra("id", id);
+        PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarm.set(AlarmManager.RTC_WAKEUP, time, sendBroadcast);
+    }
+    //a method that delete the reminder of the item after it been deleted
+    public void reminderDelete(View v) {
+        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, Notification.class);
+        alarmIntent.putExtra("id", id);
+        PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarm.cancel(sendBroadcast);
     }
 }

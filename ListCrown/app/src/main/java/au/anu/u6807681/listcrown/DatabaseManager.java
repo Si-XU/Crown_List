@@ -92,6 +92,7 @@ public class DatabaseManager {
         return cursor;
     }
 
+
     public int update(long id, String keyword, String description,long enddate, String importance, String state, String location) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(MyDatabaseHelper.KEYWORD, keyword);
