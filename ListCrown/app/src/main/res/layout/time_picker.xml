@@ -2,28 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal"
-    android:padding="10sp" >
+    android:orientation="vertical"
+    android:padding="10sp">
 
 
     <DatePicker
         android:id="@+id/date_picker"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="50"
-        android:layout_marginTop="15sp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15sp"
+        android:layout_weight="50"
+        android:calendarViewShown="false"
         android:layoutMode="opticalBounds"
         android:startYear="2019"
-         />
+        android:theme="@android:style/Theme.Black" />
 
     <TimePicker
         android:id="@+id/time_picker"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="50"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:layout_weight="50"
+        android:theme="@android:style/Theme.Black" />
 
 
 </LinearLayout>
