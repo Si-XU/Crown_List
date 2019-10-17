@@ -24,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -108,39 +109,54 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
         //when the button is add_task
         switch (v.getId()) {
             case R.id.add_task:
-
                 keyword = keywordEditText.getText().toString();
-                description = descriptionEditText.getText().toString();
-                location = locationEditText.getText().toString();
-                importance = importanceSpinner.getSelectedItem().toString();
-                state = statusSpinner.getSelectedItem().toString();
+                String endTimeTemp = endTimeText.getText().toString();
 
-                SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
-                SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
+                if (!keyword.equals("") && !endTimeTemp.equals("")) {
+                    keyword = keywordEditText.getText().toString();
+                    description = descriptionEditText.getText().toString();
+                    location = locationEditText.getText().toString();
+                    importance = importanceSpinner.getSelectedItem().toString();
+                    state = statusSpinner.getSelectedItem().toString();
 
-                Date createTemp = null;
-                Date endTemp =null;
-                try {
-                    createTemp = (Date) sdf1.parse(createTimeText.getText().toString());
-                    endTemp = (Date) sdf2.parse(endTimeText.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy");
+                    SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
+
+                    Date createTemp = null;
+                    Date endTemp =null;
+                    try {
+                        createTemp = (Date) sdf1.parse(createTimeText.getText().toString());
+                        endTemp = (Date) sdf2.parse(endTimeText.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    createdate = createTemp.getTime();
+                    enddate = endTemp.getTime();
+
+                    databaseManager.insert(keyword, description,createdate,enddate,importance, state, location);
+                    Cursor cursor = databaseManager.selectMaxId();
+                    String idTemp = cursor.getString(cursor.getColumnIndex("MAX(_id)"));
+                    id = Long.parseLong(idTemp);
+
+                    Intent main = new Intent(AddItemActivity.this, MainActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    startActivity(main);
+                    //set an alarm for a high or medium item
+                    if (!importance.equals("low")) {reminder(v);}
                 }
-
-                createdate = createTemp.getTime();
-                enddate = endTemp.getTime();
-
-                databaseManager.insert(keyword, description,createdate,enddate,importance, state, location);
-                Cursor cursor = databaseManager.selectMaxId();
-                String idTemp = cursor.getString(cursor.getColumnIndex("MAX(_id)"));
-                id = Long.parseLong(idTemp);
-
-                Intent main = new Intent(AddItemActivity.this, MainActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                startActivity(main);
-                //set an alarm for a high or medium item
-                if (!importance.equals("low")) {reminder(v);}
+                else {
+                    if (keyword.equals("") && endTimeTemp.equals("")) {
+                        Toast.makeText(this, "you should add keywords and deadline first", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (keyword.equals("")) {
+                        Toast.makeText(this, "you should add keywords first", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (endTimeTemp.equals("")) {
+                        Toast.makeText(this, "you should add deadline first", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
         }
     }

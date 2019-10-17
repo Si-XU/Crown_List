@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".DisplayMessageActivity">
 
+    /**
+      * A statement of originality:
+      *    the code is copy from https://github.com/SundeepK/CompactCalendarView
+      *    It is a modified calendar which supports add event to timetable
+      *    I do some change to fit our requirements
+      */
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/compactCalendarView"
