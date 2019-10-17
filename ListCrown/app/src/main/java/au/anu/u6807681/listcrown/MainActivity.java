@@ -101,16 +101,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // different importance
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             String channelId = "H";
-            String channelName = "High_Reminder";
+            String channelName = "ImportantReminder";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             createNotificationChannel(channelId,channelName,importance);
             channelId = "M";
-            channelName = "Medium_Reminder";
+            channelName = "Reminder";
             importance = NotificationManager.IMPORTANCE_DEFAULT;
-            createNotificationChannel(channelId,channelName,importance);
-            channelId = "L";
-            channelName = "Low_Reminder";
-            importance = NotificationManager.IMPORTANCE_LOW;
             createNotificationChannel(channelId,channelName,importance);
         }
 

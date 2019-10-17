@@ -139,10 +139,8 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 startActivity(main);
-                //set an alarm
-                reminder(v);
-
-
+                //set an alarm for a high or medium item
+                if (!importance.equals("low")) {reminder(v);}
                 break;
         }
     }

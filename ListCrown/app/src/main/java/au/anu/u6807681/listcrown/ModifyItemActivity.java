@@ -159,7 +159,7 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
                 databaseManager.update(id, keyword, description, enddate, importance, state, location);
                 this.returnHome();
                 //update previous reminder
-                reminderUpdate(v);
+                if (!importance.equals("low")){ reminderUpdate(v);}
                 break;
 
             case R.id.delete:
