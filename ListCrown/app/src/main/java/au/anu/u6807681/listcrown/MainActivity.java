@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,13 +13,18 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -150,10 +156,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 listView.setAdapter(listAdapter);
 
 
-                //listview shows the data
-
-
-
         }
 
     }
@@ -201,6 +203,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return itemListTrack;
     }
+
+    private void traverseListView(){
+        for (int i=0;i<listAdapter.getCount();i++){
+            RelativeLayout layout= (RelativeLayout) listView.getAdapter().getView(i,null,null);
+            TextView text=layout.findViewById(R.id.state);
+            if (text.getText().toString().equals("undone")){
+//                String str = text.getText().toString();
+                //SpannableStringBuilder builder = new SpannableStringBuilder(str);
+//                ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.RED);
+//                builder.setSpan(redSpan, 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //text.setText(builder);
+                //text.setTextColor(Color.parseColor("#FA8072"));
+
+                //layout.setBackgroundColor(Color.parseColor("#FA8072"));
+                //listView.setAdapter(listAdapter);
+            }
+
+        }
+    }
+
+
 
     //implement createNotificationChannel method
     private void createNotificationChannel(String channelId,String channelName,int importance){

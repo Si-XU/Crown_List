@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -115,6 +116,11 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
                 long enddate = endTemp.getTime();
 
                 databaseManager.insert(keyword, description,createdate,enddate,importance, state, location);
+
+                Cursor cursor = databaseManager.selectMaxId();
+                String idTemp = cursor.getString(cursor.getColumnIndex("MAX(_id)"));
+                long id = Long.parseLong(idTemp);
+
 
                 Intent main = new Intent(AddItemActivity.this, MainActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -64,6 +64,15 @@ public class DatabaseManager {
         return cursor;
     }
 
+    public Cursor selectMaxId() {
+        String[] col = new String[]{"MAX(_id)"};
+        Cursor cursor = database.query(MyDatabaseHelper.TABLE_NAME, col, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
 
     public Cursor selectToModify(long _id) {
         String[] arg = new String[]{String.valueOf(_id)};
