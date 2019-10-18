@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -32,9 +33,11 @@ public class Notification extends BroadcastReceiver  {
         //initialise a notification
         NotificationCompat.Builder notification;
         notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
         //choose a proper channel to send a notification according to importance level of the item
         //customize characteristic for every channel
-        if (state.equals("undone")){
+        //if (state.equals("undone")){
         switch (""+importance){
             case "high" :
                 notification = new NotificationCompat.Builder(context, "H");
@@ -58,6 +61,6 @@ public class Notification extends BroadcastReceiver  {
             case "low" :
                 break;
         }
-        }
+       // }
     }
 }
