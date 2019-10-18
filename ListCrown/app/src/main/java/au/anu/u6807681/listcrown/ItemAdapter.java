@@ -35,12 +35,16 @@ public class ItemAdapter extends ArrayAdapter<Event> {
 
         // Now we can fill the layout with the right values
         TextView tv = (TextView) convertView.findViewById(R.id.name);
-        EditText ev = (EditText) convertView.findViewById(R.id.description);
+        TextView ev = (TextView) convertView.findViewById(R.id.description);
         Event p = eventList.get(position);
         String[] texts = ((String) p.getData()).split("\\|");
         if(texts.length > 1) {
             tv.setText(texts[0]);
             ev.setText(texts[1]);
+        }
+        else if (texts.length == 1) {
+            tv.setText(texts[0]);
+            ev.setText("no description");
         }
 
         return convertView;
