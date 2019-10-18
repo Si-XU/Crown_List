@@ -52,7 +52,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
             if (importance.equals("low")) {
                 event = new Event(Color.GREEN, endDate, keyword + "|" + description);
             } else if (importance.equals("medium")) {
-                event = new Event(Color.YELLOW, endDate, keyword + "|" + description);
+                event = new Event(getResources().getColor(R.color.champagneYellow), endDate, keyword + "|" + description);
             } else {
                 event = new Event(Color.RED, endDate, keyword + "|" + description);
             }
