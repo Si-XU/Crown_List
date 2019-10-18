@@ -201,10 +201,9 @@ public class AddItemActivity extends Activity implements OnClickListener,View.On
     //a method that set a reminder at the deadline of the item when it added to the list
     public void reminder(View v){
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent alarmIntent = new Intent(this, Notification.class);
+        Intent alarmIntent = new Intent(this, MyNotification.class);
         alarmIntent.putExtra("id",id);
         PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarm.set(AlarmManager.RTC_WAKEUP, enddate, sendBroadcast);
     }
-
 }

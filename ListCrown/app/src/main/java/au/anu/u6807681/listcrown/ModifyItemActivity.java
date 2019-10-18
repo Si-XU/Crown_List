@@ -8,9 +8,6 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -220,7 +216,7 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
     //a method that modify the reminder of the item after it been updated
     public void reminderUpdate(View v) {
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent alarmIntent = new Intent(this, Notification.class);
+        Intent alarmIntent = new Intent(this, MyNotification.class);
         alarmIntent.putExtra("id", id);
         PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarm.set(AlarmManager.RTC_WAKEUP, time, sendBroadcast);
@@ -228,7 +224,7 @@ public class ModifyItemActivity extends Activity implements OnClickListener, Vie
     //a method that delete the reminder of the item after it been deleted
     public void reminderDelete(View v) {
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent alarmIntent = new Intent(this, Notification.class);
+        Intent alarmIntent = new Intent(this, MyNotification.class);
         alarmIntent.putExtra("id", id);
         PendingIntent sendBroadcast = PendingIntent.getBroadcast(this, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarm.cancel(sendBroadcast);

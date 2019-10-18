@@ -15,7 +15,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 //@author Yun Huang
 //class that receive broadcast and send notification
-public class Notification extends BroadcastReceiver  {
+public class MyNotification extends BroadcastReceiver  {
     NotificationManager notificationManager;
     DatabaseManager databaseManager;
 
