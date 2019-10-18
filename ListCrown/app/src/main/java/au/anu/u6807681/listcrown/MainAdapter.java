@@ -12,7 +12,11 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * @author Si Xu
+ *
+ *
+ */
 public class MainAdapter extends ArrayAdapter<HashMap<String, String>> {
     private List<HashMap<String, String>> eventList;
     private Context context;

@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.List;
-
+/**
+ * @author Si Xu
+ *
+ */
 public class ItemAdapter extends ArrayAdapter<Event> {
     private List<Event> eventList;
     private Context context;

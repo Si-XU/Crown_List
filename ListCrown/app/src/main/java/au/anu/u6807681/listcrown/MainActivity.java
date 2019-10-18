@@ -26,8 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
-//this is the start activity
+/**
+ * @author Hao Cao, Si Xu, YunHuang
+ *  this is the start activity
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseManager databaseManager;
@@ -73,11 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView.setAdapter(listAdapter);
 
 
-        //use curson directly
-//        sca = new SimpleCursorAdapter(this, R.layout.activity_view_item, cursor, data, ids, 0);
-//        sca.notifyDataSetChanged();
-
-        // OnCLickListener for tasks which are listed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
@@ -112,25 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-//    // this is the add button modification
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-
-//    //jump to the add activity
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        int id = item.getItemId();
-//        if (id == R.id.add_record) {
-//
-//            Intent add_mem = new Intent(this, AddItemActivity.class);
-//            startActivity(add_mem);
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void onClick(View v) {

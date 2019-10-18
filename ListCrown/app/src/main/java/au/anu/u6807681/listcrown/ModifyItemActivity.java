@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author Hao Cao
+ * @author Hao Cao, YunHuang
  *
  */
 public class ModifyItemActivity extends Activity implements OnClickListener, View.OnTouchListener {

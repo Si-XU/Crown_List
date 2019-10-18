@@ -20,7 +20,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @author Si Xu
+ *
+ */
 public class DisplayMessageActivity extends AppCompatActivity {
 
     private DatabaseManager databaseManager;
