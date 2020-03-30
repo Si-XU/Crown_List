@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Adapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,11 +16,12 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
  * @author Si Xu
+ * add envents on calendar when user click on calendar button
+ * list all the events and set their color depends importance (low = green; medium = yellow; high = red)
  *
  */
 public class DisplayMessageActivity extends AppCompatActivity {

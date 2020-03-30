@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 /**
  * @author Si Xu
- *
+ * use adapter to list activity_view_item.xml in homepage
  *
  */
 public class MainAdapter extends ArrayAdapter<HashMap<String, String>> {

@@ -5,22 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
-
 import java.util.List;
+
 /**
  * @author Si Xu
- *
+ * use adapter to list singleiitem.xml in calendar
  */
 public class ItemAdapter extends ArrayAdapter<Event> {
     private List<Event> eventList;
     private Context context;
 
     public ItemAdapter(List eventList, Context context) {
-        super(context,R.layout.singleitem, eventList);
+        super(context, R.layout.singleitem, eventList);
         this.eventList = eventList;
         this.context = context;
     }
@@ -41,11 +40,10 @@ public class ItemAdapter extends ArrayAdapter<Event> {
         TextView ev = (TextView) convertView.findViewById(R.id.description);
         Event p = eventList.get(position);
         String[] texts = ((String) p.getData()).split("\\|");
-        if(texts.length > 1) {
+        if (texts.length > 1) {
             tv.setText(texts[0]);
             ev.setText(texts[1]);
-        }
-        else if (texts.length == 1) {
+        } else if (texts.length == 1) {
             tv.setText(texts[0]);
             ev.setText("no description");
         }

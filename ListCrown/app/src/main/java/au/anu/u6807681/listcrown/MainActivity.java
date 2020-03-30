@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listAdapter = new MainAdapter(itemList, this);
         listView.setAdapter(listAdapter);
 
-
+        // OnCLickListener for tasks which are listed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
@@ -96,15 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //make sure the target API 26+ because the NotificationChannel class is new
         //call the createNotificationChannel method and create three channels with
         // different importance
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = "H";
             String channelName = "ImportantReminder";
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            createNotificationChannel(channelId,channelName,importance);
+            createNotificationChannel(channelId, channelName, importance);
             channelId = "M";
             channelName = "Reminder";
             importance = NotificationManager.IMPORTANCE_DEFAULT;
-            createNotificationChannel(channelId,channelName,importance);
+            createNotificationChannel(channelId, channelName, importance);
         }
 
 
@@ -139,54 +139,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private ArrayList<HashMap<String, String>> getItemMainPage(){
+    private ArrayList<HashMap<String, String>> getItemMainPage() {
         Cursor cursor = databaseManager.selectToMainPage();
         ArrayList<HashMap<String, String>> itemList = new ArrayList<>();
-        while (cursor.moveToNext()){
-            HashMap<String,String> item = new HashMap<>();
-            item.put("_id",cursor.getString(cursor.getColumnIndex("_id")));
-            item.put("keyword",cursor.getString(cursor.getColumnIndex("keyword")));
-            item.put("description",cursor.getString(cursor.getColumnIndex("description")));
+        while (cursor.moveToNext()) {
+            HashMap<String, String> item = new HashMap<>();
+            item.put("_id", cursor.getString(cursor.getColumnIndex("_id")));
+            item.put("keyword", cursor.getString(cursor.getColumnIndex("keyword")));
+            item.put("description", cursor.getString(cursor.getColumnIndex("description")));
 
             //deal with the deadline date
             long deadline = Long.parseLong(cursor.getString(cursor.getColumnIndex("enddate")));
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
             Date date = new Date(deadline);
-            String str = "Deadline: "+ sdf.format(date);
-            item.put("enddate",str);
+            String str = "Deadline: " + sdf.format(date);
+            item.put("enddate", str);
 
-            item.put("state",cursor.getString(cursor.getColumnIndex("state")));
+            item.put("state", cursor.getString(cursor.getColumnIndex("state")));
             itemList.add(item);
         }
         return itemList;
     }
 
-    private ArrayList<HashMap<String, String>> getUndoneTrack(){
+    private ArrayList<HashMap<String, String>> getUndoneTrack() {
         Cursor cursor = databaseManager.selectToMainPageTrack();
         ArrayList<HashMap<String, String>> itemListTrack = new ArrayList<>();
-        while (cursor.moveToNext()){
-            HashMap<String,String> item = new HashMap<>();
-            item.put("_id",cursor.getString(cursor.getColumnIndex("_id")));
-            item.put("keyword",cursor.getString(cursor.getColumnIndex("keyword")));
-            item.put("description",cursor.getString(cursor.getColumnIndex("description")));
+        while (cursor.moveToNext()) {
+            HashMap<String, String> item = new HashMap<>();
+            item.put("_id", cursor.getString(cursor.getColumnIndex("_id")));
+            item.put("keyword", cursor.getString(cursor.getColumnIndex("keyword")));
+            item.put("description", cursor.getString(cursor.getColumnIndex("description")));
 
             //deal with the deadline date
             long deadline = Long.parseLong(cursor.getString(cursor.getColumnIndex("enddate")));
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy  HH:mm");
             Date date = new Date(deadline);
-            String str = "Deadline: "+ sdf.format(date);
-            item.put("enddate",str);
+            String str = "Deadline: " + sdf.format(date);
+            item.put("enddate", str);
 
-            item.put("state",cursor.getString(cursor.getColumnIndex("state")));
+            item.put("state", cursor.getString(cursor.getColumnIndex("state")));
             itemListTrack.add(item);
         }
         return itemListTrack;
     }
 
     //the method to create NotificationChannel
-    private void createNotificationChannel(String channelId,String channelName,int importance){
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
+    private void createNotificationChannel(String channelId, String channelName, int importance) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
             notificationManager.createNotificationChannel(channel);
         }
     }
